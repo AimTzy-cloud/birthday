@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Gift! 🎁</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #87CEFA 0%, #9CFB9C 50%, #87CEFA 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Floating particles background */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatParticle 8s linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .gift-container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #4169E1, #32CD32, #FF69B4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 3s ease-in-out infinite;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @keyframes rainbowText {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #2F4F4F;
+            margin-bottom: 40px;
+            animation: subtitleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleGlow {
+            from {
+                text-shadow: 0 0 5px rgba(47, 79, 79, 0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(47, 79, 79, 0.8), 0 0 25px rgba(135, 206, 250, 0.6);
+            }
+        }
+
+        /* Gift Box */
+        .gift-box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: giftFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes giftFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-15px) rotate(-2deg);
+            }
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1) translateY(-10px);
+            filter: drop-shadow(0 20px 40px rgba(135, 206, 250, 0.6));
+        }
+
+        .box-base {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(45deg, #87CEFA, #9CFB9C);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: boxGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes boxGlow {
+            from {
+                box-shadow: 0 15px 30px rgba(135, 206, 250, 0.4);
+            }
+            to {
+                box-shadow: 0 20px 40px rgba(156, 251, 156, 0.6), 0 0 30px rgba(135, 206, 250, 0.4);
+            }
+        }
+
+        .box-lid {
+            width: 220px;
+            height: 60px;
+            background: linear-gradient(45deg, #9CFB9C, #87CEFA);
+            border-radius: 15px 15px 10px 10px;
+            position: absolute;
+            top: -30px;
+            left: -10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: bottom;
+        }
+
+        .ribbon-vertical {
+            width: 20px;
+            height: 200px;
+            background: linear-gradient(180deg, #FFD700, #FFA500);
+            position: absolute;
+            left: 50%;
+            top: -25px;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .ribbon-horizontal {
+            width: 240px;
+            height: 20px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .bow {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(45deg, #FF69B4, #FFB6C1);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+            animation: bowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes bowPulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        .bow::before,
+        .bow::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 35px;
+            background: linear-gradient(45deg, #FF69B4, #FFB6C1);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+
+        .bow::before {
+            left: -20px;
+            transform: rotate(-30deg);
+        }
+
+        .bow::after {
+            right: -20px;
+            transform: rotate(30deg);
+        }
+
+        /* Click instruction */
+        .click-instruction {
+            margin-top: 40px;
+            font-size: 1.2rem;
+            color: #2F4F4F;
+            animation: instructionBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes instructionBlink {
+            0%, 50%, 100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Explosion effects */
+        .explosion-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .explosion-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .heart-explosion {
+            position: absolute;
+            font-size: 30px;
+            pointer-events: none;
+            animation: heartExplode 2s ease-out forwards;
+        }
+
+        @keyframes heartExplode {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Opened gift state */
+        .gift-opened .box-lid {
+            transform: rotateX(-120deg) translateY(-20px);
+        }
+
+        .gift-opened .bow {
+            animation: bowFly 1s ease-out forwards;
+        }
+
+        @keyframes bowFly {
+            0% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) translateY(-200px) scale(0) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Loading screen for transition */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #87CEFA 0%, #9CFB9C 50%, #87CEFA 100%);
+            background-size: 400% 400%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .loading-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #fff;
+            text-align: center;
+            animation: loadingPulse 1s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Sparkle effects */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: sparkleAnim 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 20px #fff;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .gift-box {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .box-base {
+                width: 150px;
+                height: 120px;
+            }
+            
+            .box-lid {
+                width: 170px;
+                height: 50px;
+                left: -10px;
+            }
+            
+            .ribbon-vertical {
+                height: 150px;
+            }
+            
+            .ribbon-horizontal {
+                width: 190px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles background -->
+    <div id="particles-container"></div>
+
+    <!-- Main gift container -->
+    <div class="gift-container">
+        <h1 class="title">Ada Kejutan Untukmu! 🎁</h1>
+        <p class="subtitle">Klik kotak kado di bawah untuk membuka kejutan spesial ✨</p>
+        
+        <div class="gift-box" id="giftBox" onclick="openGift()">
+            <div class="box-base"></div>
+            <div class="box-lid" id="boxLid"></div>
+            <div class="ribbon-vertical"></div>
+            <div class="ribbon-horizontal"></div>
+            <div class="bow"></div>
+        </div>
+        
+        <p class="click-instruction">👆 Klik untuk membuka! 👆</p>
+    </div>
+
+    <!-- Explosion container -->
+    <div class="explosion-container" id="explosionContainer"></div>
+
+    <!-- Loading screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">
+            Menyiapkan kejutan spesial...<br>
+            💖✨💖
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.width = (Math.random() * 8 + 4) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = Math.random() > 0.5 ? '#87CEFA' : '#9CFB9C';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.getElementById('particles-container').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        // Create sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        // Create particles and sparkles every interval
+        setInterval(createParticle, 1500);
+        setInterval(createSparkle, 2000);
+
+        // Gift opening function
+        function openGift() {
+            const giftBox = document.getElementById('giftBox');
+            const explosionContainer = document.getElementById('explosionContainer');
+            
+            // Prevent multiple clicks
+            giftBox.style.pointerEvents = 'none';
+            
+            // Add opened class for lid animation
+            giftBox.classList.add('gift-opened');
+            
+            // Create explosion effect
+            createExplosion();
+            
+            // Show loading screen and redirect after explosion
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'flex';
+                
+                setTimeout(() => {
+                    window.location.href = 'gift/index.html';
+                }, 2000);
+            }, 1500);
+        }
+
+        // Create explosion effect
+        function createExplosion() {
+            const explosionContainer = document.getElementById('explosionContainer');
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            // Create colorful particles explosion
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'explosion-particle';
+                
+                const size = Math.random() * 10 + 5;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                const colors = ['#87CEFA', '#9CFB9C', '#FFD700', '#FF69B4', '#FFA500', '#32CD32'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+                
+                const angle = (Math.PI * 2 * i) / 50;
+                const velocity = Math.random() * 300 + 100;
+                const gravity = 0.5;
+                
+                explosionContainer.appendChild(particle);
+                
+                // Animate particle
+                let x = 0;
+                let y = 0;
+                let vx = Math.cos(angle) * velocity;
+                let vy = Math.sin(angle) * velocity;
+                
+                const animateParticle = () => {
+                    x += vx * 0.016;
+                    y += vy * 0.016;
+                    vy += gravity;
+                    
+                    particle.style.transform = `translate(${x}px, ${y}px)`;
+                    particle.style.opacity = Math.max(0, 1 - Math.abs(y) / 300);
+                    
+                    if (particle.style.opacity > 0) {
+                        requestAnimationFrame(animateParticle);
+                    } else {
+                        particle.remove();
+                    }
+                };
+                
+                requestAnimationFrame(animateParticle);
+            }
+            
+            // Create heart explosion
+            const heartSymbols = ['💖', '💕', '💙', '💚', '✨', '🌟', '💫', '🎉'];
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-explosion';
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                
+                const angle = (Math.PI * 2 * i) / 20;
+                const distance = Math.random() * 200 + 100;
+                
+                heart.style.left = centerX + Math.cos(angle) * distance + 'px';
+                heart.style.top = centerY + Math.sin(angle) * distance + 'px';
+                heart.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                explosionContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+            
+            // Screen shake effect
+            document.body.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 500);
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add click effect anywhere on screen
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.gift-box')) return;
+            
+            // Create small hearts at click position
+            for(let i = 0; i < 3; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = ['💙', '💚', '✨'][Math.floor(Math.random() * 3)];
+                heart.style.position = 'fixed';
+                heart.style.left = (e.clientX + (Math.random() - 0.5) * 30) + 'px';
+                heart.style.top = (e.clientY + (Math.random() - 0.5) * 30) + 'px';
+                heart.style.fontSize = (Math.random() * 8 + 12) + 'px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '1000';
+                heart.style.animation = `heartExplode 1.5s ease-out forwards`;
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 1500);
+            }
+        });
+
+        // Add some extra sparkle effects around the gift box
+        setInterval(() => {
+            const giftBox = document.getElementById('giftBox');
+            const rect = giftBox.getBoundingClientRect();
+            
+            for(let i = 0; i < 3; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+                sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+                sparkle.style.position = 'fixed';
+                sparkle.style.animationDelay = Math.random() * 1 + 's';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 3000);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
